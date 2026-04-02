@@ -111,7 +111,7 @@ const sendPaymentReceipt = async (user, booking, payment) => {
 };
 
 const sendPasswordResetEmail = async (user, token) => {
-  const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
+  const resetUrl = `${process.env.FRONTEND_URL}/auth/reset-password?token=${token}`;
   return sendMail({
     to: user.email,
     subject: 'Reset Your Password - RentEase',

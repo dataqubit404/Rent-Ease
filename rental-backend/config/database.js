@@ -24,9 +24,16 @@ module.exports = {
     port: process.env.DB_PORT || 3306,
     dialect: 'mysql',
     logging: false,
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED === 'true',
+        // Aiven/DigitalOcean MySQL often requires at least this:
+        minVersion: 'TLSv1.2'
+      }
+    },
     pool: {
-      max: 20,
-      min: 5,
+      max: process.env.DB_POOL_MAX ? parseInt(process.env.DB_POOL_MAX) : 10,
+      min: process.env.DB_POOL_MIN ? parseInt(process.env.DB_POOL_MIN) : 0,
       acquire: 30000,
       idle: 10000
     }

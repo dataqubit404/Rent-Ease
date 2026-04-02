@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, SlidersHorizontal, X, ChevronDown, MapPin } from 'lucide-react';
@@ -12,7 +12,7 @@ import { propertiesAPI } from '../../services/api';
 const PROPERTY_TYPES = ['apartment', 'house', 'villa', 'studio', 'condo', 'penthouse'];
 const CITIES = ['Mumbai', 'Delhi', 'Bangalore', 'Pune', 'Hyderabad', 'Chennai', 'Kolkata', 'Jaipur'];
 
-export default function PropertiesPage() {
+function PropertiesContent() {
   const searchParams = useSearchParams();
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -197,5 +197,17 @@ export default function PropertiesPage() {
 
       <Footer />
     </div>
+  );
+}
+
+export default function PropertiesPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-surface-2 flex items-center justify-center">
+        <div className="text-brand-600 animate-pulse font-medium">Loading properties...</div>
+      </div>
+    }>
+      <PropertiesContent />
+    </Suspense>
   );
 }

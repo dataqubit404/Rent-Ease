@@ -2,9 +2,9 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../.env') }
 const { sequelize, User } = require('../models');
 const logger = require('../utils/logger');
 
-const ADMIN_EMAIL = 'admin@rentease.com';
-const ADMIN_PASSWORD = 'Admin@1234';
-const ADMIN_NAME = 'Platform Admin';
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@rentease.com';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Admin@1234';
+const ADMIN_NAME = process.env.ADMIN_NAME || 'Platform Admin';
 
 async function seedAdmin() {
   try {

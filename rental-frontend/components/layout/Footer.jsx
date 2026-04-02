@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { Home, Github, Twitter, Instagram, Mail } from 'lucide-react';
+import { Home, Twitter, Github, Linkedin, Instagram, Mail } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -18,10 +18,22 @@ export default function Footer() {
               The modern platform for property rentals. Find your perfect home or list your property with ease.
             </p>
             <div className="flex gap-3 mt-6">
-              {[Twitter, Instagram, Github, Mail].map((Icon, i) => (
-                <button key={i} className="w-9 h-9 rounded-lg bg-white/5 hover:bg-brand-500 flex items-center justify-center transition-all duration-200 hover:scale-110">
-                  <Icon size={16} />
-                </button>
+              {[
+                { Icon: Twitter, href: 'https://twitter.com/Rajdarlami5' },
+                { Icon: Linkedin, href: 'https://linkedin.com/in/raj-darlami' },
+                { Icon: Instagram, href: 'https://instagram.com/rajthapaa__' },
+                { Icon: Github, href: 'https://github.com/dataqubit404' },
+                { Icon: Mail, href: 'mailto:rajdarlami199@gmail.com' }
+              ].map(({ Icon, href }, i) => (
+                <a
+                  key={i}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-xl bg-white/5 hover:bg-brand-500 flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-brand-500/20 group"
+                >
+                  <Icon size={18} className="group-hover:text-white text-gray-400 transition-colors" />
+                </a>
               ))}
             </div>
           </div>

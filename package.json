@@ -1,0 +1,15 @@
+{
+  "name": "rental-management-system",
+  "version": "1.0.0",
+  "description": "Root management for Rental Management System",
+  "scripts": {
+    "install-all": "npm install && cd rental-backend && npm install && cd ../rental-frontend && npm install",
+    "dev": "npx concurrently \"cd rental-backend && npm run dev\" \"cd rental-frontend && npm run dev\"",
+    "build": "cd rental-frontend && npm run build",
+    "backend": "cd rental-backend && npm start",
+    "frontend": "cd rental-frontend && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

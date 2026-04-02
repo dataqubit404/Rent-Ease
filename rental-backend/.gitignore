@@ -1,0 +1,109 @@
+node_modules/
+.env
+.env.example
+.env*
+.env*.example
+uploads/
+npm-debug.log
+.DS_Store
+*.log
+temp/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+.next/
+
+# production
+/build
+build/
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env*.local
+.env
+.env.local
+.env.local.example
+.env*.local.example
+.env*
+
+# vercel
+.vercel
+
+
+# --- CORE DEPENDENCIES ---
+node_modules/
+jspm_packages/
+web_modules/
+
+# --- SECRETS (EXTREMELY IMPORTANT) ---
+.env
+.env.example
+.env.local.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+*.env.*
+
+# --- NEXT.JS & FRONTEND BUILDS ---
+.next/
+out/
+build/
+dist/
+.cache/
+.parcel-cache/
+
+# --- BACKEND & LOGS ---
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- DATABASE & FILES ---
+*.sql
+*.mysql
+*.sqlite
+uploads/             # Ignore uploaded profile pictures/property images
+public/uploads/      # If you upload images here
+
+# --- TESTING ---
+coverage/
+.nyc_output/
+
+# --- IDE & OS (CLEANUP) ---
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# --- MISC ---
+.vercel
+.turbo

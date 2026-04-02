@@ -3,6 +3,15 @@ const config = require('../config/database');
 
 const env = process.env.NODE_ENV || 'development';
 const dbConfig = config[env];
+const logger = require('../utils/logger');
+
+logger.info(`Starting DB connection for environment: ${env}`);
+if (dbConfig.url) {
+  const obfuscatedUrl = dbConfig.url.replace(/:([^@]+)@/, ':****@');
+  logger.info(`Connecting via URL: ${obfuscatedUrl}`);
+} else {
+  logger.info(`Connecting via separate vars: ${dbConfig.host}:${dbConfig.port} DB: ${dbConfig.database}`);
+}
 
 let sequelize;
 if (dbConfig.url) {

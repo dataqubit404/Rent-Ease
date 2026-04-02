@@ -40,6 +40,7 @@ const register = async (req, res, next) => {
       user
     });
   } catch (error) {
+    logger.error(`Registration failed for ${req.body.email}:`, error);
     next(error);
   }
 };

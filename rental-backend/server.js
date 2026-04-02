@@ -85,20 +85,27 @@ const PORT = process.env.PORT || 5002;
 // Connect DB and Start Server
 const startServer = async () => {
   try {
+    // Check critical env vars
+    if (!process.env.JWT_SECRET) {
+      logger.error('CRITICAL: JWT_SECRET is not defined in environment variables!');
+      process.exit(1);
+    }
+
     await sequelize.authenticate();
     logger.info('Database connected successfully');
 
     const FORCE_DB_SYNC = process.env.FORCE_DB_SYNC === 'true';
     if (FORCE_DB_SYNC) {
+      logger.info('Performing database sync with { alter: true }...');
       await sequelize.sync({ alter: true });
-      logger.info('Database synced with alter: true');
+      logger.info('Database schema updated successfully');
     } else {
-      await sequelize.sync(); // Basic sync without alter
-      logger.info('Database connected (sync basic)');
+      await sequelize.sync(); // Basic sync
+      logger.info('Database synced (basic mode)');
     }
 
     app.listen(PORT, () => {
-      logger.info(`Server running on port ${PORT} in ${process.env.NODE_ENV} mode`);
+      logger.info(`Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
     });
   } catch (error) {
     logger.error('Unable to start server:', error);

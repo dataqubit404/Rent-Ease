@@ -17,6 +17,8 @@ module.exports = {
     }
   },
   production: {
+    use_env_variable: 'DB_URL', // This is for sequelize-cli
+    url: process.env.DB_URL,      // This is for our manual connection
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
@@ -27,7 +29,6 @@ module.exports = {
     dialectOptions: {
       ssl: {
         rejectUnauthorized: process.env.DB_SSL_REJECT_UNAUTHORIZED === 'true',
-        // Aiven/DigitalOcean MySQL often requires at least this:
         minVersion: 'TLSv1.2'
       }
     },

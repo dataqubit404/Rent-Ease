@@ -8,43 +8,44 @@ const ADMIN_NAME = process.env.ADMIN_NAME || 'Platform Admin';
 
 async function seedAdmin() {
   try {
-    await sequelize.authenticate();
-    console.log('✅ Database connected');
+    // Only authenticate if not already connected
+    try {
+      await sequelize.authenticate();
+    } catch (e) {
+      // If already connected or sync handled elsewhere, ignore
+    }
 
-    // Sync to ensure tables exist
-    await sequelize.sync();
+    const email = process.env.ADMIN_EMAIL || 'admin@rentease.com';
+    const password = process.env.ADMIN_PASSWORD || 'Admin@1234';
+    const name = process.env.ADMIN_NAME || 'Platform Admin';
 
-    const existing = await User.findOne({ where: { email: ADMIN_EMAIL } });
+    const existing = await User.findOne({ where: { email } });
     if (existing) {
-      console.log(`⚠️  Admin user already exists: ${ADMIN_EMAIL}`);
       if (existing.role !== 'admin') {
         await existing.update({ role: 'admin' });
-        console.log('   → Role updated to admin');
+        logger.info(`Admin role verified for: ${email}`);
       }
     } else {
       await User.create({
-        name: ADMIN_NAME,
-        email: ADMIN_EMAIL,
-        password: ADMIN_PASSWORD,
+        name,
+        email,
+        password,
         role: 'admin',
         is_active: true,
         is_verified: true,
       });
-      console.log(`✅ Admin user created: ${ADMIN_EMAIL}`);
+      logger.info(`✅ Initial Admin user created: ${email}`);
     }
-
-    console.log('\n───────────────────────────────────');
-    console.log('  Admin Login Credentials');
-    console.log('───────────────────────────────────');
-    console.log(`  Email:    ${ADMIN_EMAIL}`);
-    console.log(`  Password: ${ADMIN_PASSWORD}`);
-    console.log('───────────────────────────────────\n');
-
-    process.exit(0);
+    return true;
   } catch (error) {
-    console.error('❌ Seed failed:', error.message);
-    process.exit(1);
+    logger.error('❌ Admin seed failed:', error);
+    return false;
   }
 }
 
-seedAdmin();
+// Run if called directly
+if (require.main === module) {
+  seedAdmin().then(() => process.exit());
+}
+
+module.exports = seedAdmin;

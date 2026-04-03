@@ -119,6 +119,10 @@ const startServer = async () => {
       logger.info('Database synced (basic mode)');
     }
 
+    // Ensure Admin user exists
+    const seedAdmin = require('./scripts/seed-admin');
+    await seedAdmin();
+
     app.listen(PORT, () => {
       logger.info(`Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
     });

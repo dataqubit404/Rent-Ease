@@ -67,8 +67,9 @@ app.use(morgan('combined', {
   stream: { write: (message) => logger.info(message.trim()) }
 }));
 
-// Static Files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+const uploadDir = process.env.UPLOAD_PATH || 'uploads';
+const staticPath = path.isAbsolute(uploadDir) ? uploadDir : path.join(__dirname, uploadDir);
+app.use('/uploads', express.static(staticPath));
 
 // Health Check
 app.get('/health', (req, res) => {

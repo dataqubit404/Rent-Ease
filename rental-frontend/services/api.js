@@ -3,7 +3,7 @@ import axios from 'axios';
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5002/api',
   headers: { 'Content-Type': 'application/json' },
-  timeout: 15000,
+  timeout: 60000, // Increased to 60 seconds for Render free tier wake-up
 });
 
 // ── Request interceptor: attach JWT ────────────────────────────────────────────

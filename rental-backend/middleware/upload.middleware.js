@@ -10,7 +10,8 @@ const createUploadDir = (dir) => {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadPath = path.join(__dirname, '../uploads/');
+    const uploadDir = process.env.UPLOAD_PATH || 'uploads/';
+    const uploadPath = path.isAbsolute(uploadDir) ? uploadDir : path.join(__dirname, '../', uploadDir);
     createUploadDir(uploadPath);
     cb(null, uploadPath);
   },

@@ -9,6 +9,7 @@ const api = axios.create({
 // ── Request interceptor: attach JWT ────────────────────────────────────────────
 api.interceptors.request.use(
   (config) => {
+    console.info(`DEBUG: Sending request to: ${config.baseURL}${config.url}`);
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('rental_token');
       if (token) config.headers.Authorization = `Bearer ${token}`;

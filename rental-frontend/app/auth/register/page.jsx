@@ -26,11 +26,20 @@ export default function RegisterPage() {
       return;
     }
     setLoading(true);
+    console.info('DEBUG: Starting registration process...');
+    console.info('DEBUG: Payload:', { ...form, password: '****' });
     try {
       const data = await register(form);
+      console.info('DEBUG: Registration Success:', data);
       toast.success(`Account created! Welcome, ${data.user.name.split(' ')[0]}!`);
       router.push('/dashboard');
     } catch (err) {
+      console.error('DEBUG: Registration Error Details:', {
+        message: err.message,
+        code: err.code,
+        response: err.response?.data,
+        status: err.response?.status
+      });
       toast.error(err.response?.data?.error || 'Registration failed');
     } finally {
       setLoading(false);

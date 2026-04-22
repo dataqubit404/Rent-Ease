@@ -4,7 +4,7 @@
 
 ---
 
-Live Demo : https://rent-ease-bice-iota.vercel.app
+Live Demo : https://rent-ease-1.vercel.app
 
 ---
 ## 🚀 Key Features
